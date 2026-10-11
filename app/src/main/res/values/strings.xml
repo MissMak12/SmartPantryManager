@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Smart Pantry Manager</string>
+    <string name="subtitle_tagline">Use what you have. Waste less.</string>
+    <string name="btn_add_ingredient">+ Ingredient</string>
+    <string name="btn_find_recipes">Find Recipes</string>
+    <string name="btn_settings">Settings</string>
+    <string name="pantry_header">PANTRY INGREDIENTS</string>
+    <string name="pantry_count_default">Your pantry</string>
+    <string name="pantry_help_text">Tap an item to edit it. Long-press to delete.</string>
+    <string name="title_add_ingredient">Add ingredient</string>
+    <string name="hint_ingredient_name">Ingredient name (e.g. tomato)</string>
+    <string name="hint_quantity">Quantity (e.g. 3)</string>
+    <string name="hint_unit">Unit (e.g. pieces, g, ml)</string>
+    <string name="hint_expiry">Expiry date (optional, YYYY-MM-DD)</string>
+    <string name="btn_save_ingredient">Save ingredient</string>
+    <string name="title_suggested_recipes">Suggested Recipes</string>
+    <string name="subtitle_suggested_recipes">Only recipes you can make with your current pantry.</string>
+    <string name="empty_recipes">No recipes match your pantry yet — add more ingredients.</string>
+    <string name="header_required_ingredients">REQUIRED INGREDIENTS</string>
+    <string name="header_method">METHOD</string>
+    <string name="title_settings">Settings</string>
+    <string name="label_expiry_switch">Show expiry reminders</string>
+    <string name="settings_description">Recipe suggestions use strict ingredient matching. A recipe is shown only when every required ingredient and quantity is available.</string>
+</resources>
