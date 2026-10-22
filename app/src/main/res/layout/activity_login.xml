@@ -13,12 +13,12 @@
         android:padding="28dp">
 
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
             android:background="@drawable/bg_card_glass_3d"
-            android:contentDescription="Logo"
-            android:padding="16dp"
-            android:src="@drawable/ic_pantry" />
+            android:contentDescription="Smart Pantry Logo"
+            android:scaleType="centerCrop"
+            android:src="@drawable/smartpantrylogo" />
 
         <TextView
             android:layout_width="wrap_content"
