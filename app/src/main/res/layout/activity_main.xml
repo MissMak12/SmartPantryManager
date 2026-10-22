@@ -182,13 +182,13 @@
     <!-- Navigation Drawer Sidebar -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigationView"
-        android:layout_width="280dp"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@drawable/bg_gradient_main"
-        app:headerLayout="@layout/nav_header"
-        app:itemIconTint="#00F2FE"
-        app:itemTextColor="#FFFFFF"
-        app:menu="@menu/drawer_menu" />
+        android:background="@drawable/bg_gradient_main">
+
+        <include layout="@layout/nav_sidebar" />
+
+    </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>

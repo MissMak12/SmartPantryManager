@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -52,23 +53,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawerLayout = findViewById(R.id.drawerLayout);
         NavigationView navigationView = findViewById(R.id.navigationView);
-        navigationView.setNavigationItemSelectedListener(this);
+        if (navigationView != null) {
+            navigationView.setNavigationItemSelectedListener(this);
+        }
 
         totalCountBadge = findViewById(R.id.totalCountBadge);
         healthScorePercent = findViewById(R.id.healthScorePercent);
         healthProgressBar = findViewById(R.id.healthProgressBar);
 
-        // Header view details
-        if (navigationView.getHeaderCount() > 0) {
-            android.view.View headerView = navigationView.getHeaderView(0);
-            navUserName = headerView.findViewById(R.id.navUserName);
-            navUserEmail = headerView.findViewById(R.id.navUserEmail);
+        // Sidebar user info and navigation buttons
+        navUserName = findViewById(R.id.navUserName);
+        navUserEmail = findViewById(R.id.navUserEmail);
 
-            String name = prefs.getString("user_name", "Smart Pantry User");
-            String email = prefs.getString("user_email", "user@smartpantry.co.za");
-            if (navUserName != null) navUserName.setText(name);
-            if (navUserEmail != null) navUserEmail.setText(email);
-        }
+        String name = prefs.getString("user_name", "Smart Pantry User");
+        String email = prefs.getString("user_email", "user@smartpantry.co.za");
+        if (navUserName != null) navUserName.setText(name);
+        if (navUserEmail != null) navUserEmail.setText(email);
+
+        // Sidebar custom button card clicks
+        setupSidebarNavigation();
 
         ImageButton menuBtn = findViewById(R.id.menuToggleButton);
         menuBtn.setOnClickListener(v -> {
@@ -111,6 +114,56 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         findViewById(R.id.suggestButton).setOnClickListener(v -> startActivity(new Intent(this, SuggestedRecipesActivity.class)));
     }
 
+    private void setupSidebarNavigation() {
+        View btnPantry = findViewById(R.id.navBtnPantry);
+        if (btnPantry != null) {
+            btnPantry.setOnClickListener(v -> drawerLayout.closeDrawer(GravityCompat.START));
+        }
+
+        View btnRecipes = findViewById(R.id.navBtnRecipes);
+        if (btnRecipes != null) {
+            btnRecipes.setOnClickListener(v -> {
+                drawerLayout.closeDrawer(GravityCompat.START);
+                startActivity(new Intent(this, SuggestedRecipesActivity.class));
+            });
+        }
+
+        View btnSupport = findViewById(R.id.navBtnSupport);
+        if (btnSupport != null) {
+            btnSupport.setOnClickListener(v -> {
+                drawerLayout.closeDrawer(GravityCompat.START);
+                startActivity(new Intent(this, SupportActivity.class));
+            });
+        }
+
+        View btnSettings = findViewById(R.id.navBtnSettings);
+        if (btnSettings != null) {
+            btnSettings.setOnClickListener(v -> {
+                drawerLayout.closeDrawer(GravityCompat.START);
+                startActivity(new Intent(this, SettingsActivity.class));
+            });
+        }
+
+        View btnTheme = findViewById(R.id.navBtnTheme);
+        if (btnTheme != null) {
+            btnTheme.setOnClickListener(v -> {
+                drawerLayout.closeDrawer(GravityCompat.START);
+                toggleTheme();
+            });
+        }
+
+        View btnLogout = findViewById(R.id.navBtnLogout);
+        if (btnLogout != null) {
+            btnLogout.setOnClickListener(v -> {
+                drawerLayout.closeDrawer(GravityCompat.START);
+                prefs.edit().clear().apply();
+                BannerNotification.show(this, "Logged out successfully.", BannerNotification.Type.INFO);
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
+            });
+        }
+    }
+
     private void toggleTheme() {
         boolean isDarkMode = prefs.getBoolean("dark_mode", true);
         prefs.edit().putBoolean("dark_mode", !isDarkMode).apply();
@@ -139,28 +192,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.nav_pantry) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        } else if (id == R.id.nav_recipes) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-            startActivity(new Intent(this, SuggestedRecipesActivity.class));
-        } else if (id == R.id.nav_support) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-            startActivity(new Intent(this, SupportActivity.class));
-        } else if (id == R.id.nav_settings) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-            startActivity(new Intent(this, SettingsActivity.class));
-        } else if (id == R.id.nav_theme) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-            toggleTheme();
-        } else if (id == R.id.nav_logout) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-            prefs.edit().clear().apply();
-            BannerNotification.show(this, "Logged out successfully.", BannerNotification.Type.INFO);
-            startActivity(new Intent(this, LoginActivity.class));
-            finish();
-        }
+        drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 }
