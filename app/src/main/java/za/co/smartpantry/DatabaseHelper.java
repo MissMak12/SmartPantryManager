@@ -4,16 +4,21 @@ import android.content.*; import android.database.*; import android.database.sql
 import java.util.*;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
- private static final String DB_NAME="smart_pantry.db"; private static final int DB_VERSION=1;
+ private static final String DB_NAME="smart_pantry.db"; private static final int DB_VERSION=2;
  public DatabaseHelper(Context c){super(c,DB_NAME,null,DB_VERSION);}
  @Override public void onCreate(SQLiteDatabase db){
   db.execSQL("CREATE TABLE ingredients(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT NOT NULL,quantity REAL NOT NULL,unit TEXT NOT NULL,expiry TEXT)");
   db.execSQL("CREATE TABLE recipes(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT NOT NULL,steps TEXT NOT NULL)");
   db.execSQL("CREATE TABLE recipe_ingredients(id INTEGER PRIMARY KEY AUTOINCREMENT,recipe_id INTEGER NOT NULL,name TEXT NOT NULL,quantity REAL NOT NULL,unit TEXT NOT NULL,FOREIGN KEY(recipe_id) REFERENCES recipes(id) ON DELETE CASCADE)");
+  db.execSQL("CREATE TABLE users(id INTEGER PRIMARY KEY AUTOINCREMENT,email TEXT UNIQUE NOT NULL,password TEXT NOT NULL,full_name TEXT NOT NULL,created_at TEXT)");
+  db.execSQL("CREATE TABLE support_tickets(id INTEGER PRIMARY KEY AUTOINCREMENT,user_email TEXT NOT NULL,category TEXT NOT NULL,subject TEXT NOT NULL,message TEXT NOT NULL,status TEXT NOT NULL,created_at TEXT)");
   seed(db);
  }
  @Override public void onConfigure(SQLiteDatabase db){super.onConfigure(db);db.setForeignKeyConstraintsEnabled(true);}
- @Override public void onUpgrade(SQLiteDatabase db,int oldV,int newV){db.execSQL("DROP TABLE IF EXISTS recipe_ingredients");db.execSQL("DROP TABLE IF EXISTS recipes");db.execSQL("DROP TABLE IF EXISTS ingredients");onCreate(db);}
+ @Override public void onUpgrade(SQLiteDatabase db,int oldV,int newV){
+  db.execSQL("CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY AUTOINCREMENT,email TEXT UNIQUE NOT NULL,password TEXT NOT NULL,full_name TEXT NOT NULL,created_at TEXT)");
+  db.execSQL("CREATE TABLE IF NOT EXISTS support_tickets(id INTEGER PRIMARY KEY AUTOINCREMENT,user_email TEXT NOT NULL,category TEXT NOT NULL,subject TEXT NOT NULL,message TEXT NOT NULL,status TEXT NOT NULL,created_at TEXT)");
+ }
  private void seed(SQLiteDatabase db){
   String[][] data={
    {"Tomato Egg Scramble","Beat eggs, chop tomatoes, cook together in a pan.","egg|2|pieces;tomato|2|pieces;salt|1|pinch"},
@@ -39,6 +44,61 @@ public class DatabaseHelper extends SQLiteOpenHelper {
   };
   for(String[] r:data){ContentValues cv=new ContentValues();cv.put("name",r[0]);cv.put("steps",r[1]);long id=db.insert("recipes",null,cv);for(String token:r[2].split(";")){String[] p=token.split("\\|");ContentValues iv=new ContentValues();iv.put("recipe_id",id);iv.put("name",p[0]);iv.put("quantity",Double.parseDouble(p[1]));iv.put("unit",p[2]);db.insert("recipe_ingredients",null,iv);}}
  }
+
+ // User Authentication Methods
+ public long registerUser(String fullName, String email, String password) {
+  ContentValues v = new ContentValues();
+  v.put("full_name", fullName.trim());
+  v.put("email", email.trim().toLowerCase(Locale.ROOT));
+  v.put("password", password);
+  v.put("created_at", String.valueOf(System.currentTimeMillis()));
+  try {
+   return getWritableDatabase().insert("users", null, v);
+  } catch (Exception e) {
+   return -1;
+  }
+ }
+
+ public User authenticateUser(String email, String password) {
+  try (Cursor c = getReadableDatabase().rawQuery("SELECT id, full_name, email, created_at FROM users WHERE lower(email)=? AND password=?", new String[]{email.trim().toLowerCase(Locale.ROOT), password})) {
+   if (c.moveToFirst()) {
+    return new User(c.getLong(0), c.getString(1), c.getString(2), c.getString(3));
+   }
+  }
+  return null;
+ }
+
+ public User getUserByEmail(String email) {
+  try (Cursor c = getReadableDatabase().rawQuery("SELECT id, full_name, email, created_at FROM users WHERE lower(email)=?", new String[]{email.trim().toLowerCase(Locale.ROOT)})) {
+   if (c.moveToFirst()) {
+    return new User(c.getLong(0), c.getString(1), c.getString(2), c.getString(3));
+   }
+  }
+  return null;
+ }
+
+ // Support Ticket Methods
+ public long createSupportTicket(String userEmail, String category, String subject, String message) {
+  ContentValues v = new ContentValues();
+  v.put("user_email", userEmail);
+  v.put("category", category);
+  v.put("subject", subject);
+  v.put("message", message);
+  v.put("status", "OPEN");
+  v.put("created_at", String.valueOf(System.currentTimeMillis()));
+  return getWritableDatabase().insert("support_tickets", null, v);
+ }
+
+ public List<SupportTicket> getSupportTickets(String userEmail) {
+  List<SupportTicket> list = new ArrayList<>();
+  try (Cursor c = getReadableDatabase().rawQuery("SELECT id, user_email, category, subject, message, status, created_at FROM support_tickets WHERE user_email=? ORDER BY id DESC", new String[]{userEmail})) {
+   while (c.moveToNext()) {
+    list.add(new SupportTicket(c.getLong(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), c.getString(5), c.getString(6)));
+   }
+  }
+  return list;
+ }
+
  public List<Ingredient> getIngredients(){List<Ingredient> out=new ArrayList<>();try(Cursor c=getReadableDatabase().rawQuery("SELECT id,name,quantity,unit,expiry FROM ingredients ORDER BY name",null)){while(c.moveToNext())out.add(new Ingredient(c.getLong(0),c.getString(1),c.getDouble(2),c.getString(3),c.getString(4)));}return out;}
  public Ingredient getIngredient(long id){try(Cursor c=getReadableDatabase().rawQuery("SELECT id,name,quantity,unit,expiry FROM ingredients WHERE id=?",new String[]{String.valueOf(id)})){if(c.moveToFirst())return new Ingredient(c.getLong(0),c.getString(1),c.getDouble(2),c.getString(3),c.getString(4));}return null;}
  public long saveIngredient(Ingredient i){ContentValues v=new ContentValues();v.put("name",i.name.trim());v.put("quantity",i.quantity);v.put("unit",i.unit.trim());v.put("expiry",i.expiry);SQLiteDatabase db=getWritableDatabase();if(i.id>0)return db.update("ingredients",v,"id=?",new String[]{String.valueOf(i.id)})>0?i.id:-1;return db.insert("ingredients",null,v);}

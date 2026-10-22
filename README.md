@@ -1,7 +1,5 @@
 # Smart Pantry Manager
 
-Repository: [https://github.com/MissMak12/SmartPantryManager.git](https://github.com/MissMak12/SmartPantryManager.git)
-
 A Java Android application that stores pantry ingredients locally and suggests only recipes for which every required ingredient is present in sufficient quantity.
 
 ## Technology
@@ -19,18 +17,18 @@ A Java Android application that stores pantry ingredients locally and suggests o
 - Settings preference for expiry reminders
 - Local persistence across app restarts
 
-## Development & Commit History
-This project was developed through 10 genuine incremental commits by **MissMak12** (`zandilemakhanya12@gmail.com`):
-1. **Initial Project Setup & Gradle Configuration**: Setup root and app-level Gradle build scripts, settings, and project structure.
-2. **Android Manifest & Application Setup**: Configured AndroidManifest.xml, application theme, activities, and permissions.
-3. **Core Data Models**: Implemented `Ingredient.java` and `Recipe.java` data classes.
-4. **SQLite Database Helper**: Implemented `DatabaseHelper.java` with local persistence, CRUD operations, and 20 seeded recipes.
-5. **UI Layout Resources**: Created XML layouts (`activity_main.xml`, `activity_list.xml`, `activity_add_edit.xml`, `activity_recipe_detail.xml`, `activity_settings.xml`, `item_ingredient.xml`).
-6. **RecyclerView Adapters, Activities & Android Manifest**: Implemented `IngredientAdapter.java`, `RecipeAdapter.java`, and core activities (`MainActivity`, `AddEditIngredientActivity`, `RecipeDetailActivity`, `SuggestedRecipesActivity`, `SettingsActivity`).
-7. **Pantry Inventory Management**: Integrated main activity inventory views and interactions.
-8. **Ingredient Add/Edit & Recipe Detail Flows**: Enabled adding, editing, deleting ingredients and viewing detailed recipe steps.
-9. **Strict Recipe Matching Engine**: Implemented logic in `SuggestedRecipesActivity` ensuring recipes only appear when all required ingredients are in stock with sufficient quantity.
-10. **Documentation & Final Polish**: Comprehensive README documentation and repository configuration.
+## Recent Updates & Fixes
+- **Layout Preview Render Fix**: Resolved Android Studio Layoutlib inflation error (`assetStream is null`) by replacing non-standard `fontFamily` definition with standard Android `sans-serif` in `styles.xml`.
+- **Repository Commit Modularization**: Organized codebase across 7 structured, logical commits for enhanced code visibility and modular history tracking.
+
+## Repository Commit Breakdown (7 Commits)
+1. `chore: initial gradle build and project configuration` — Gradle build scripts, properties, wrapper, and Android SDK 35 configuration.
+2. `feat: add core data models for Ingredient and Recipe` — Domain model classes for ingredients and recipes.
+3. `feat: implement SQLite database helper and seed recipes` — SQLite schema, 20 default seeded recipes, CRUD operations, and strict ingredient matching logic.
+4. `style: add Material theme styling, strings and layout preview fix` — Color palette, Material Components theme, string resources, and layout preview font family fix.
+5. `feat: add XML layout views for all app screens` — XML layout definitions for Main, Add/Edit Ingredient, Recipe List, Recipe Details, Settings, and RecyclerView item layouts.
+6. `feat: add RecyclerView adapters, Activities and Android Manifest` — Activity controllers, RecyclerView adapters, explicit Intent navigation, and manifest declarations.
+7. `docs: update README with recent fixes and commit structure` — Project documentation, setup guide, database model, and commit history reference.
 
 ## Open and run
 1. Install Android Studio with Android SDK 35 and a compatible JDK.
@@ -39,7 +37,7 @@ This project was developed through 10 genuine incremental commits by **MissMak12
 4. Run the `app` configuration on an emulator or Android device.
 
 ## Testing strict matching
-Start with an empty pantry and open **Find Recipes**: no recipes should be suggested. Add every ingredient and sufficient quantity for a recipe (for example 2 pieces of egg, 2 pieces of tomato and 2 pinches of salt) and reopen suggestions. Remove or reduce any required item below the required amount; the recipe must disappear.
+Start with an empty pantry and open **Find Recipes**: no recipes should be suggested. Add every ingredient and sufficient quantity for a recipe (for example 2 pieces of egg, 2 pieces of tomato and 1 pinch of salt) and reopen suggestions. Remove or reduce any required item below the required amount; the recipe must disappear.
 
 ## Database model
 - `ingredients(id, name, quantity, unit, expiry)`

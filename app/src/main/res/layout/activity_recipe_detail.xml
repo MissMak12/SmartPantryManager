@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7FAF7">
+    android:background="@drawable/bg_gradient_main">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,43 +14,63 @@
             android:id="@+id/recipeTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#1B4332"
+            android:textColor="#00F2FE"
             android:textSize="26sp"
             android:textStyle="bold" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:text="@string/header_required_ingredients"
-            android:textColor="#276749"
-            android:textStyle="bold" />
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_card_glass_3d"
+            android:orientation="vertical"
+            android:padding="18dp">
 
-        <TextView
-            android:id="@+id/recipeIngredients"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:lineSpacingExtra="4dp"
-            android:textColor="#333333"
-            android:textSize="16sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="REQUIRED INGREDIENTS"
+                android:textColor="#38EF7D"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:text="@string/header_method"
-            android:textColor="#276749"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/recipeIngredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="4dp"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/recipeSteps"
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:lineSpacingExtra="4dp"
-            android:textColor="#333333"
-            android:textSize="16sp" />
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_card_glass_3d"
+            android:orientation="vertical"
+            android:padding="18dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PREPARATION METHOD"
+                android:textColor="#38EF7D"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/recipeSteps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="4dp"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

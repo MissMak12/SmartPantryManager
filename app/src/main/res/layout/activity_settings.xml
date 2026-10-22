@@ -2,33 +2,71 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7FAF7"
+    android:background="@drawable/bg_gradient_main"
     android:orientation="vertical"
     android:padding="24dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/title_settings"
-        android:textColor="#1B4332"
+        android:text="Settings &amp; Preferences"
+        android:textColor="#00F2FE"
         android:textSize="26sp"
         android:textStyle="bold" />
 
-    <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/expirySwitch"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:minHeight="48dp"
-        android:text="@string/label_expiry_switch"
-        android:textSize="16sp" />
+        android:background="@drawable/bg_card_glass_3d"
+        android:orientation="vertical"
+        android:padding="20dp">
 
-    <TextView
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/expirySwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="Show Expiry Reminders"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/themeSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:minHeight="48dp"
+            android:text="Cyber Dark Mode (Theme)"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/settings_description"
-        android:textColor="#555555"
-        android:textSize="15sp" />
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_card_glass_3d"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="About Smart Pantry AI 2026"
+            android:textColor="#38EF7D"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Recipe suggestions use strict ingredient matching. A recipe is suggested only when every required ingredient and quantity is available in your local pantry."
+            android:textColor="#B0BEC5"
+            android:textSize="14sp" />
+
+    </LinearLayout>
 
 </LinearLayout>
