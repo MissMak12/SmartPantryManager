@@ -12,6 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * AdminActivity provides the Admin Control Panel for reviewing registered users,
+ * support tickets, and system inventory statistics.
+ */
 public class AdminActivity extends AppCompatActivity {
     private DatabaseHelper db;
     private SharedPreferences prefs;
@@ -29,6 +33,7 @@ public class AdminActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
+        // Apply dynamic background (Pure white in light mode, cyber dark in dark mode)
         View root = findViewById(R.id.rootLayout);
         if (root != null) {
             if (isDarkMode) {
@@ -56,6 +61,9 @@ public class AdminActivity extends AppCompatActivity {
         refreshData();
     }
 
+    /**
+     * Loads system statistics, users, and support tickets into the admin list view.
+     */
     private void refreshData() {
         List<User> users = db.getAllUsers();
         List<SupportTicket> tickets = db.getAllSupportTickets();
