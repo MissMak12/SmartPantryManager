@@ -1,10 +1,31 @@
 <resources>
+    <!-- Default App Theme (Cyber Dark 2026) -->
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">#276749</item>
-        <item name="colorPrimaryVariant">#1B4332</item>
-        <item name="colorSecondary">#F4A261</item>
+        <item name="colorPrimary">@color/cyber_teal_primary</item>
+        <item name="colorPrimaryVariant">@color/dark_emerald</item>
+        <item name="colorSecondary">@color/neon_emerald</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:statusBarColor">@color/cyber_dark_bg</item>
+        <item name="android:navigationBarColor">@color/cyber_dark_bg</item>
+        <item name="android:windowBackground">@drawable/bg_gradient_main</item>
+    </style>
+
+    <!-- Dark Cyber Theme -->
+    <style name="AppTheme.Dark" parent="AppTheme">
+        <item name="android:textColorPrimary">@color/text_primary_dark</item>
+        <item name="android:textColorSecondary">@color/text_secondary_dark</item>
+    </style>
+
+    <!-- Emerald Light Theme -->
+    <style name="AppTheme.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/light_primary</item>
+        <item name="colorPrimaryVariant">@color/light_accent</item>
+        <item name="colorSecondary">@color/dark_emerald</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:statusBarColor">#1B4332</item>
         <item name="android:navigationBarColor">#1B4332</item>
+        <item name="android:windowBackground">@drawable/bg_gradient_light</item>
+        <item name="android:textColorPrimary">@color/text_primary_light</item>
+        <item name="android:textColorSecondary">@color/text_secondary_light</item>
     </style>
 </resources>

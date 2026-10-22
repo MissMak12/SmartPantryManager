@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7FAF7"
+    android:background="@drawable/bg_gradient_main"
     android:orientation="vertical"
     android:padding="20dp">
 
@@ -10,9 +10,9 @@
         android:id="@+id/screenTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/title_suggested_recipes"
-        android:textColor="#1B4332"
-        android:textSize="25sp"
+        android:text="Suggested Recipes"
+        android:textColor="#00F2FE"
+        android:textSize="26sp"
         android:textStyle="bold" />
 
     <TextView
@@ -20,14 +20,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        android:text="@string/subtitle_suggested_recipes"
-        android:textColor="#555555"
+        android:text="Strict matching algorithm — showing recipes you can cook right now."
+        android:textColor="#B0BEC5"
         android:textSize="14sp" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:layout_weight="1">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -40,11 +40,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:background="@drawable/bg_card_glass_3d"
             android:gravity="center"
             android:padding="24dp"
-            android:text="@string/empty_recipes"
-            android:textColor="#666666"
-            android:textSize="16sp"
+            android:text="No matching recipes found for your current pantry. Try adding more ingredients!"
+            android:textColor="#B0BEC5"
+            android:textSize="15sp"
             android:visibility="gone" />
     </FrameLayout>
 

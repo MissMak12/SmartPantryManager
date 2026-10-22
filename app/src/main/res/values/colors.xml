@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 2026 Cyber Dark & Emerald Palette -->
+    <color name="cyber_dark_bg">#0F2027</color>
+    <color name="cyber_dark_bg_end">#203A43</color>
+    <color name="cyber_dark_surface">#1A2C38</color>
+    <color name="cyber_dark_surface_glass">#D91E3240</color>
+    <color name="cyber_teal_primary">#00F2FE</color>
+    <color name="cyber_teal_secondary">#4FACFE</color>
+    <color name="neon_emerald">#38EF7D</color>
+    <color name="dark_emerald">#11998E</color>
+
+    <!-- Light Theme Palette -->
+    <color name="light_bg_start">#E8F5E9</color>
+    <color name="light_bg_end">#F1F8E9</color>
+    <color name="light_surface">#FFFFFF</color>
+    <color name="light_surface_glass">#E6FFFFFF</color>
+    <color name="light_primary">#1B4332</color>
+    <color name="light_accent">#276749</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary_dark">#FFFFFF</color>
+    <color name="text_secondary_dark">#B0BEC5</color>
+    <color name="text_primary_light">#1B4332</color>
+    <color name="text_secondary_light">#555555</color>
+
+    <!-- Status & Notification Colors -->
+    <color name="status_fresh">#38EF7D</color>
+    <color name="status_warning">#F2994A</color>
+    <color name="status_expired">#FF4B2B</color>
+
+    <!-- Banner Backgrounds -->
+    <color name="banner_success_bg">#ED00F2FE</color>
+    <color name="banner_error_bg">#EDFF4B2B</color>
+    <color name="banner_info_bg">#ED11998E</color>
+    <color name="banner_warning_bg">#EDF2994A</color>
+
+    <!-- Glass Overlay & Borders -->
+    <color name="glass_border">#3300F2FE</color>
+    <color name="glass_border_light">#22276749</color>
+</resources>
