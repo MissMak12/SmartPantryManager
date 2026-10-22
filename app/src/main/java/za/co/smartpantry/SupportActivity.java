@@ -1,6 +1,7 @@
 package za.co.smartpantry;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -18,11 +19,23 @@ public class SupportActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
+        boolean isDarkMode = prefs.getBoolean("dark_mode", true);
+        setTheme(isDarkMode ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_support);
 
+        View root = findViewById(android.R.id.content);
+        if (root != null) {
+            if (isDarkMode) {
+                root.setBackgroundResource(R.drawable.bg_gradient_main);
+            } else {
+                root.setBackgroundColor(Color.WHITE);
+            }
+        }
+
         db = new DatabaseHelper(this);
-        SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
         userEmail = prefs.getString("user_email", "guest@smartpantry.co.za");
 
         aiQueryInput = findViewById(R.id.aiQueryInput);

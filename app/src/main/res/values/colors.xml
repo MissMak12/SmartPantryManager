@@ -10,11 +10,11 @@
     <color name="neon_emerald">#38EF7D</color>
     <color name="dark_emerald">#11998E</color>
 
-    <!-- Light Theme Palette -->
-    <color name="light_bg_start">#E8F5E9</color>
-    <color name="light_bg_end">#F1F8E9</color>
+    <!-- Light Theme Palette (Pure White Backgrounds) -->
+    <color name="light_bg_start">#FFFFFF</color>
+    <color name="light_bg_end">#FFFFFF</color>
     <color name="light_surface">#FFFFFF</color>
-    <color name="light_surface_glass">#E6FFFFFF</color>
+    <color name="light_surface_glass">#F8FFFFFF</color>
     <color name="light_primary">#1B4332</color>
     <color name="light_accent">#276749</color>
 

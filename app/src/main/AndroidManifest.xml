@@ -21,6 +21,7 @@
         <activity android:name=".SuggestedRecipesActivity" />
         <activity android:name=".RecipeDetailActivity" />
         <activity android:name=".SettingsActivity" />
+        <activity android:name=".AdminActivity" />
 
     </application>
 </manifest>

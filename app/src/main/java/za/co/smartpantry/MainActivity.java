@@ -136,6 +136,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             });
         }
 
+        View btnAdmin = findViewById(R.id.navBtnAdmin);
+        if (btnAdmin != null) {
+            btnAdmin.setOnClickListener(v -> {
+                drawerLayout.closeDrawer(GravityCompat.START);
+                startActivity(new Intent(this, AdminActivity.class));
+            });
+        }
+
         View btnSettings = findViewById(R.id.navBtnSettings);
         if (btnSettings != null) {
             btnSettings.setOnClickListener(v -> {

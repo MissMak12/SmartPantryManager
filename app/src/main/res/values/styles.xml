@@ -16,15 +16,15 @@
         <item name="android:textColorSecondary">@color/text_secondary_dark</item>
     </style>
 
-    <!-- Emerald Light Theme -->
+    <!-- Emerald Pure White Light Theme -->
     <style name="AppTheme.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/light_primary</item>
         <item name="colorPrimaryVariant">@color/light_accent</item>
         <item name="colorSecondary">@color/dark_emerald</item>
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:statusBarColor">#1B4332</item>
-        <item name="android:navigationBarColor">#1B4332</item>
-        <item name="android:windowBackground">@drawable/bg_gradient_light</item>
+        <item name="android:statusBarColor">#FFFFFF</item>
+        <item name="android:navigationBarColor">#FFFFFF</item>
+        <item name="android:windowBackground">@android:color/white</item>
         <item name="android:textColorPrimary">@color/text_primary_light</item>
         <item name="android:textColorSecondary">@color/text_secondary_light</item>
     </style>

@@ -99,6 +99,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
   return list;
  }
 
+ // Admin Methods
+ public List<User> getAllUsers() {
+  List<User> list = new ArrayList<>();
+  try (Cursor c = getReadableDatabase().rawQuery("SELECT id, full_name, email, created_at FROM users ORDER BY id DESC", null)) {
+   while (c.moveToNext()) {
+    list.add(new User(c.getLong(0), c.getString(1), c.getString(2), c.getString(3)));
+   }
+  }
+  return list;
+ }
+
+ public List<SupportTicket> getAllSupportTickets() {
+  List<SupportTicket> list = new ArrayList<>();
+  try (Cursor c = getReadableDatabase().rawQuery("SELECT id, user_email, category, subject, message, status, created_at FROM support_tickets ORDER BY id DESC", null)) {
+   while (c.moveToNext()) {
+    list.add(new SupportTicket(c.getLong(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), c.getString(5), c.getString(6)));
+   }
+  }
+  return list;
+ }
+
+ public boolean deleteUser(long id) {
+  return getWritableDatabase().delete("users", "id=?", new String[]{String.valueOf(id)}) > 0;
+ }
+
+ public boolean updateSupportTicketStatus(long id, String status) {
+  ContentValues v = new ContentValues();
+  v.put("status", status);
+  return getWritableDatabase().update("support_tickets", v, "id=?", new String[]{String.valueOf(id)}) > 0;
+ }
+
  public List<Ingredient> getIngredients(){List<Ingredient> out=new ArrayList<>();try(Cursor c=getReadableDatabase().rawQuery("SELECT id,name,quantity,unit,expiry FROM ingredients ORDER BY name",null)){while(c.moveToNext())out.add(new Ingredient(c.getLong(0),c.getString(1),c.getDouble(2),c.getString(3),c.getString(4)));}return out;}
  public Ingredient getIngredient(long id){try(Cursor c=getReadableDatabase().rawQuery("SELECT id,name,quantity,unit,expiry FROM ingredients WHERE id=?",new String[]{String.valueOf(id)})){if(c.moveToFirst())return new Ingredient(c.getLong(0),c.getString(1),c.getDouble(2),c.getString(3),c.getString(4));}return null;}
  public long saveIngredient(Ingredient i){ContentValues v=new ContentValues();v.put("name",i.name.trim());v.put("quantity",i.quantity);v.put("unit",i.unit.trim());v.put("expiry",i.expiry);SQLiteDatabase db=getWritableDatabase();if(i.id>0)return db.update("ingredients",v,"id=?",new String[]{String.valueOf(i.id)})>0?i.id:-1;return db.insert("ingredients",null,v);}
