@@ -4,7 +4,7 @@ import android.content.*; import android.database.*; import android.database.sql
 import java.util.*;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
- private static final String DB_NAME="smart_pantry.db"; private static final int DB_VERSION=2;
+ private static final String DB_NAME="smart_pantry.db"; private static final int DB_VERSION=3;
  public DatabaseHelper(Context c){super(c,DB_NAME,null,DB_VERSION);}
  @Override public void onCreate(SQLiteDatabase db){
   db.execSQL("CREATE TABLE ingredients(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT NOT NULL,quantity REAL NOT NULL,unit TEXT NOT NULL,expiry TEXT)");
@@ -18,6 +18,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
  @Override public void onUpgrade(SQLiteDatabase db,int oldV,int newV){
   db.execSQL("CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY AUTOINCREMENT,email TEXT UNIQUE NOT NULL,password TEXT NOT NULL,full_name TEXT NOT NULL,created_at TEXT)");
   db.execSQL("CREATE TABLE IF NOT EXISTS support_tickets(id INTEGER PRIMARY KEY AUTOINCREMENT,user_email TEXT NOT NULL,category TEXT NOT NULL,subject TEXT NOT NULL,message TEXT NOT NULL,status TEXT NOT NULL,created_at TEXT)");
+  if(oldV < 3) {
+   seed(db);
+  }
  }
  private void seed(SQLiteDatabase db){
   String[][] data={
@@ -40,7 +43,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
    {"Cucumber Yogurt Salad","Chop cucumber and mix with yogurt and salt.","cucumber|1|pieces;yogurt|100|g;salt|1|pinch"},
    {"Garlic Spinach Rice","Cook rice; sauté garlic and spinach, then combine.","rice|150|g;garlic|1|cloves;spinach|80|g;olive oil|1|tbsp"},
    {"Simple French Toast","Dip bread in beaten egg and pan-fry until browned.","bread|2|slices;egg|1|pieces;milk|50|ml"},
-   {"Carrot Apple Salad","Grate carrot and apple and mix together.","carrot|1|pieces;apple|1|pieces"}
+   {"Carrot Apple Salad","Grate carrot and apple and mix together.","carrot|1|pieces;apple|1|pieces"},
+   {"Smoked Mackerel with a New Potato and Dill Salad","Boil and dice the potatoes; pickle the cucumber ribbons in apple cider vinegar and dill; toss chopped lettuce, tomatoes, olives, and capers with the potatoes and almond yoghurt; serve the potato salad with pickled cucumber and mackerel on top.","baby potatoes|4|pieces;smoked mackerel|2|fillets;cucumber|1|pieces;lettuce|100|g;sundried tomatoes|4|pieces;almond yoghurt|3|tbsp;capers|1|tbsp;black olives|6|pieces;apple cider vinegar|1|tbsp;fresh dill|1|pinch"},
+   {"Ultimate Satisfying Vegan Salad","Slice the potato into thin discs and microwave for 4–5 minutes per side until cooked. Layer the lettuce, cucumber, tomatoes, chickpeas, and cooked potatoes in a bowl, then top with avocado and dreamy tahini dressing.","potato|1|pieces;mixed lettuce|100|g;cucumber|1|pieces;tomatoes|2|pieces;avocado|1|pieces;chickpeas|150|g;tahini dressing|2|tbsp"},
+   {"Potato Salad Morning Bread Sandwich","Boil/microwave and mash the potatoes with minced carrots, cucumbers, corn, mayo, honey mustard, and pepper. Spread the potato salad onto morning bread rolls, layer with fresh lettuce and cherry tomatoes, and sandwich together.","potatoes|2|pieces;lettuce|50|g;cucumber|0.5|pieces;cherry tomatoes|5|pieces;morning bread rolls|2|pieces;mayonnaise|2|tbsp;honey mustard|1|tbsp;carrot|1|pieces;corn|50|g;pepper|1|pinch"},
+   {"Lunchbox Potato, Bean & Tuna Salad","Dice the potatoes, tomato, and cucumber; mix with drained corn and beans. Add torn lettuce and top with a tin of tuna and fresh lemon juice right before serving.","boiled potatoes|2|pieces;tomato|1|pieces;lebanese cucumber|1|pieces;iceberg lettuce|80|g;canned tuna|1|can;corn kernels|50|g;three-bean mix|100|g;lemon|1|pieces"},
+   {"Loaded Potato Bowl","Slice the potatoes and air-fry until crispy. Sauté the minced meat with onion, garlic, and tomato paste, and cube the tomatoes, cucumber, and avocado to layer with the lettuce and potatoes.","potatoes|2|pieces;tomatoes|2|pieces;cucumber|1|pieces;iceberg lettuce|100|g;minced meat|150|g;red onion|0.5|pieces;garlic|1|cloves;tomato paste|1|tbsp;skyr|3|tbsp;avocado|0.5|pieces;light cheese|30|g"},
+   {"Jacket Potato with Creamy Chickpea Salad","Bake the potatoes until tender. Toss the chickpeas, diced cucumber, quartered cherry tomatoes, and torn lettuce with herb yogurt dressing, then stuff the mixture into the baked potatoes.","baked potatoes|2|pieces;little gem lettuce|80|g;cucumber|1|pieces;cherry tomatoes|6|pieces;canned chickpeas|150|g;herb yogurt dressing|3|tbsp"},
+   {"Tandoori Lentil Bunless Burger with Potato Fries & Cucumber Raita","Slice the potato into fries and bake until crisp. Form and cook tandoori lentil patties, whip up a quick cucumber raita with yogurt, and layer the patties on cos lettuce with sliced tomatoes and cucumber.","potato|1|pieces;baby cos lettuce|50|g;tomato|1|pieces;cucumber|0.5|pieces;greek-style yoghurt|4|tbsp;lentils|150|g;tandoori paste|2|tbsp;lemon|0.5|pieces"}
   };
   for(String[] r:data){ContentValues cv=new ContentValues();cv.put("name",r[0]);cv.put("steps",r[1]);long id=db.insert("recipes",null,cv);for(String token:r[2].split(";")){String[] p=token.split("\\|");ContentValues iv=new ContentValues();iv.put("recipe_id",id);iv.put("name",p[0]);iv.put("quantity",Double.parseDouble(p[1]));iv.put("unit",p[2]);db.insert("recipe_ingredients",null,iv);}}
  }
