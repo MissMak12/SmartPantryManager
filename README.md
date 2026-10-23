@@ -47,4 +47,4 @@ Start with an empty pantry and open **Find Recipes**: no recipes should be sugge
 SQLite was selected because this is a single-device coursework prototype and SQLiteOpenHelper supports offline persistence without a hosted backend.
 
 ## Limitations / next steps
-Ingredient synonyms and cross-unit conversions are deliberately limited. For example, this prototype recognises basic singular/plural forms and selected unit aliases but does not convert grams to kilograms or millilitres to litres. Expiry-alert preference is stored, but operating-system notifications are not implemented. Verify build and runtime behaviour in your own Android Studio environment before submission.
+Ingredient synonyms and cross-unit conversions are deliberately limited. For example, this prototype recognises basic singular/plural forms and selected unit aliases but does not convert grams to kilograms or millilitres to litres. Expiry-alert preference is stored, but operating-system notifications are not implemented.
